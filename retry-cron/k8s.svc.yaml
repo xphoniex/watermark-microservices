@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: retry-cron
+spec:
+  replicas: 1
+  selector:
+    matchLabels: &labels
+      app: retry-cron
+  template:
+    metadata:
+      labels: *labels
+    spec:
+      containers:
+        - name: retry-cron
+          image: dev.local/retry-cron
+          imagePullPolicy: Never
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: retry-cron
+spec:
+  selector:
+    app: retry-cron
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+
+---
+
+apiVersion: sources.eventing.knative.dev/v1alpha1
+kind: CronJobSource
+metadata:
+  name: retry-cron
+spec:
+  schedule: "*/5 * * * *"
+#  data: '{"message": "Hello world!"}'
+  sink:
+    apiVersion: v1
+    kind: Service
+    name: retry-cron

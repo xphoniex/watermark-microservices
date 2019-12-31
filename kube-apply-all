@@ -1,0 +1,23 @@
+kubectl create ns watermark
+kubectl label namespace watermark knative-eventing-injection=enabled
+
+cd db
+kubectl apply -f k8s.yaml -n watermark
+
+cd ../getbook-svc
+kubectl apply -f k8s.yaml -n watermark
+
+cd ../status-svc
+kubectl apply -f k8s.yaml -n watermark
+
+cd ../statuses-svc
+kubectl apply -f k8s.yaml -n watermark
+
+cd ../watermark-engine
+kubectl apply -f k8s.yaml -n watermark
+
+cd ../watermark-svc
+kubectl apply -f k8s.yaml -n watermark
+
+cd ../retry-cron
+kubectl apply -f k8s.yaml -n watermark

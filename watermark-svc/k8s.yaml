@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: watermark
+spec:
+  replicas: 1
+  selector:
+    matchLabels: &labels
+      app: watermark
+  template:
+    metadata:
+      labels: *labels
+    spec:
+      containers:
+        - name: watermark
+          image: dev.local/watermark
+          imagePullPolicy: Never
+
+---
+
+  kind: Service
+  apiVersion: v1
+  metadata:
+    name: watermark
+  spec:
+    type: NodePort
+    selector:
+      app: watermark
+    ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

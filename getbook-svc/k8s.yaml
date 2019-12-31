@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: getbook
+spec:
+  replicas: 1
+  selector:
+    matchLabels: &labels
+      app: getbook
+  template:
+    metadata:
+      labels: *labels
+    spec:
+      containers:
+        - name: getbook
+          image: dev.local/getbook
+          imagePullPolicy: Never
+
+---
+
+  kind: Service
+  apiVersion: v1
+  metadata:
+    name: getbook
+  spec:
+    type: NodePort
+    selector:
+      app: getbook
+    ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

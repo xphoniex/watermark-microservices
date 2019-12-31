@@ -1,0 +1,24 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: retry-cron
+spec:
+  template:
+    spec:
+      containers:
+        - name: retry-cron
+          image: dev.local/retry-cron
+          imagePullPolicy: Never
+
+---
+
+apiVersion: sources.eventing.knative.dev/v1alpha1
+kind: CronJobSource
+metadata:
+  name: retry-cron
+spec:
+  schedule: "*/5 * * * *"
+  sink:
+    apiVersion: serving.knative.dev/v1
+    kind: Service
+    name: retry-cron

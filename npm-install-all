@@ -1,0 +1,17 @@
+cd getbook-svc
+npm install
+
+cd ../status-svc
+npm install
+
+cd ../statuses-svc
+npm install
+
+cd ../watermark-engine
+npm install
+
+cd ../watermark-svc
+npm install
+
+cd ../retry-cron
+npm install

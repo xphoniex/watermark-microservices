@@ -1,0 +1,43 @@
+cd getbook-svc
+echo "==========================="
+echo "| testing getbook service |"
+echo "==========================="
+echo ""
+echo ""
+npm test
+
+cd ../status-svc
+echo ""
+echo "==========================="
+echo "| testing status service  |"
+echo "==========================="
+echo ""
+echo ""
+npm test
+
+cd ../statuses-svc
+echo ""
+echo "==========================="
+echo "| testing statuses service|"
+echo "==========================="
+echo ""
+echo ""
+npm test
+
+cd ../watermark-svc
+echo ""
+echo "============================"
+echo "| testing watermark service|"
+echo "============================"
+echo ""
+echo ""
+npm test
+
+cd ../watermark-engine
+echo ""
+echo "============================"
+echo "| testing watermark engine |"
+echo "============================"
+echo ""
+echo ""
+npm test

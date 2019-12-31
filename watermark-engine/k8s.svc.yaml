@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: watermark-engine
+spec:
+  replicas: 1
+  selector:
+    matchLabels: &labels
+      app: watermark-engine
+  template:
+    metadata:
+      labels: *labels
+    spec:
+      containers:
+        - name: watermark-engine
+          image: dev.local/watermark-engine
+          imagePullPolicy: Never
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: watermark-engine
+spec:
+  selector:
+    app: watermark-engine
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+
+---
+
+apiVersion: eventing.knative.dev/v1alpha1
+kind: Trigger
+metadata:
+  name: watermark-engine
+spec:
+  filter:
+    attributes:
+      type: pending-watermark
+  subscriber:
+    ref:
+     apiVersion: v1
+     kind: Service
+     name: watermark-engine

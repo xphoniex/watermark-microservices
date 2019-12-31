@@ -1,0 +1,19 @@
+eval $(minikube docker-env)
+
+cd getbook-svc
+docker build -t dev.local/getbook .
+
+cd ../status-svc
+docker build -t dev.local/status .
+
+cd ../statuses-svc
+docker build -t dev.local/statuses .
+
+cd ../watermark-engine
+docker build -t dev.local/watermark-engine .
+
+cd ../watermark-svc
+docker build -t dev.local/watermark .
+
+cd ../retry-cron
+docker build -t dev.local/retry-cron .
