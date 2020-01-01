@@ -14,7 +14,7 @@ spec:
       containers:
         - name: mongodb
           image: mongo
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
 
 ---
 
